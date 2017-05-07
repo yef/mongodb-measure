@@ -1,6 +1,6 @@
 # mongodb-measure
 
-Simple example for measure MongoDB memory consumption and performance.
+Simple example for measure MongoDB resources consumption and performance.
 
 How to run:
 
