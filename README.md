@@ -1,4 +1,4 @@
-# redis-measure
+# mongodb-measure
 
 Simple example for measure MongoDB memory consumption and performance.
 
