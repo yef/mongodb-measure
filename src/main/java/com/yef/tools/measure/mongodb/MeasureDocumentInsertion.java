@@ -14,26 +14,9 @@ import org.bson.codecs.configuration.CodecRegistry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeasureDocumentInsertion {
+public class MeasureDocumentInsertion extends BaseMeasure {
 
-    private static final String MONGODB_HOST = "localhost";
-    private static final Integer MONGODB_PORT = 27017;
-    private static final String DATABASE_NAME = "testDb";
-    public static final String COLLECTION_NAME = "testCollection";
-    MongoClient mongoClient;
-    MongoDatabase database;
-
-
-    public MeasureDocumentInsertion() {
-        mongoClient = new MongoClient(MONGODB_HOST, MONGODB_PORT);
-        CodecRegistry codecRegistry =
-                CodecRegistries.fromRegistries(CodecRegistries.fromCodecs(new UuidCodec(UuidRepresentation.STANDARD)),
-                        MongoClient.getDefaultCodecRegistry());
-        MongoClientOptions options = MongoClientOptions.builder()
-                .codecRegistry(codecRegistry).build();
-        MongoClient client = new MongoClient(new ServerAddress(), options);
-        database = client.getDatabase(DATABASE_NAME);
-    }
+    private static final String COLLECTION_NAME = "testCollection";
 
     public static void main(String[] args) {
         MeasureDocumentInsertion main = new MeasureDocumentInsertion();
@@ -74,15 +57,4 @@ public class MeasureDocumentInsertion {
         printResults(num, statsAfter, timeBefore, timeAfter, "JVM memory used for collection: " + (memoryAfter - memoryBefore) + " bytes");
     }
 
-    private void printResults(int num, Document statsAfter, long timeBefore, long timeAfter, String... addition) {
-        System.out.println("-----------------------");
-        System.out.println("Count of documents in collection '" + COLLECTION_NAME + "': " + num);
-        System.out.println("Collection Size: " + statsAfter.get("size") + " bytes");
-        System.out.println("Size per document from stats: " + statsAfter.get("avgObjSize") + " bytes");
-        System.out.println("Calculated size per document: " + ((double) statsAfter.getInteger("size")) / num + " bytes");
-        System.out.println("Total time for insertion " + num + " documents: " + ((double) (timeAfter - timeBefore)) / 1000 + " s");
-        System.out.println("Insertion time per document: " + ((double) (timeAfter - timeBefore)) / num + " ms");
-        for (String string : addition) System.out.println(string);
-        System.out.println("-----------------------");
-    }
 }
