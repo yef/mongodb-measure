@@ -15,7 +15,7 @@ public class MeasureIndex extends BaseMeasure {
     }
 
     public void measureNonIndexedOneByOneInsertion() {
-        int num = 100000;
+        int num = 3000;
         MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
         collection.drop();
         long timeBefore = System.currentTimeMillis();
@@ -28,7 +28,7 @@ public class MeasureIndex extends BaseMeasure {
     }
 
     public void measureIndexedOneByOneInsertion() {
-        int num = 100000;
+        int num = 30000;
         MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
         collection.drop();
         collection.createIndex(new Document("first", 1).append("second", 1));

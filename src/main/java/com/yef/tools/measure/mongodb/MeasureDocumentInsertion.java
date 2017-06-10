@@ -1,15 +1,7 @@
 package com.yef.tools.measure.mongodb;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-import org.bson.UuidRepresentation;
-import org.bson.codecs.UuidCodec;
-import org.bson.codecs.configuration.CodecRegistries;
-import org.bson.codecs.configuration.CodecRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +17,7 @@ public class MeasureDocumentInsertion extends BaseMeasure {
     }
 
     private void measureOneByOneInsertion() {
-        int num = 100000;
+        int num = 1000;
         MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
         collection.drop();
         long timeBefore = System.currentTimeMillis();
@@ -38,7 +30,7 @@ public class MeasureDocumentInsertion extends BaseMeasure {
     }
 
     private void measureBulkInsertion() {
-        int num = 1000000;
+        int num = 10000;
         MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
         collection.drop();
         System.gc();

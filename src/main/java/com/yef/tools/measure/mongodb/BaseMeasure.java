@@ -1,14 +1,8 @@
 package com.yef.tools.measure.mongodb;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-import org.bson.UuidRepresentation;
-import org.bson.codecs.UuidCodec;
-import org.bson.codecs.configuration.CodecRegistries;
-import org.bson.codecs.configuration.CodecRegistry;
 
 public class BaseMeasure {
 
@@ -21,13 +15,7 @@ public class BaseMeasure {
 
     public BaseMeasure() {
         mongoClient = new MongoClient(MONGODB_HOST, MONGODB_PORT);
-        CodecRegistry codecRegistry =
-                CodecRegistries.fromRegistries(CodecRegistries.fromCodecs(new UuidCodec(UuidRepresentation.STANDARD)),
-                        MongoClient.getDefaultCodecRegistry());
-        MongoClientOptions options = MongoClientOptions.builder()
-                .codecRegistry(codecRegistry).build();
-        MongoClient client = new MongoClient(new ServerAddress(), options);
-        database = client.getDatabase(DATABASE_NAME);
+        database = mongoClient.getDatabase(DATABASE_NAME);
     }
 
     public void printResults(int num, Document statsAfter, long timeBefore, long timeAfter, String... addition) {
